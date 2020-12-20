@@ -8,56 +8,50 @@ export class Form extends React.Component {
         selectedCountry: 'ru'
     }
 
-    handleLoginInput = (evt) => {
+    handleInput = (event) => {
+        const isCheckbox = event.target.type === 'checkbox' ? true : false;
+
         this.setState({
-            login: evt.target.value
+            [event.target.name]: isCheckbox ? event.target.checked : event.target.value
         })
     }
 
-    handlePasswordInput = (evt) => {
-        this.setState({
-            password: evt.target.value,
-        })
-    }
-
-    handleCheckbox = (evt) => {
-        this.setState({
-            showPass: evt.target.checked
-        })
-    }
-
-    handleCountryInput = (evt) => {
-        this.setState({
-            selectedCountry: evt.target.value
-        })
-    }
-
-    handleCheckbox = (evt) => {
-        this.setState({
-            showPass: evt.target.checked
-        })
+    handleSubmit = (event) => {
+        event.preventDefault();
+        alert('Event submit handled');
     }
 
     render() {
         return (
-            <div>
+            <form onSubmit={this.handleSubmit}>
                 <h1>Hello, {this.state.login !== '' ? this.state.login : 'Guest'}</h1>
-                <p>Login: <input value={this.state.login} onChange={this.handleLoginInput} /></p>
+                <p>Login: <input
+                    name='login'
+                    value={this.state.login}
+                    onChange={this.handleInput} /></p>
                 <p>Password: <input
                     type={this.state.showPass ? 'text' : 'password'}
-                    value={
-                        this.state.password
-                    }
-                    onChange={this.handlePasswordInput} />
+                    name='password'
+                    value={this.state.password}
+                    onChange={this.handleInput} />
                 </p>
-                <p>Select country: <select value={this.state.selectedCountry} onChange={this.handleCountryInput}>
+                <p>Select country: <select
+                    name='selectedCountry'
+                    value={this.state.selectedCountry}
+                    onChange={this.handleInput}>
                     <option>ru</option>
                     <option>ua</option>
                     <option>au</option>
                     <option>usa</option>
                     <option>other</option>
                 </select></p>
-                <p>Show password: <input type='checkbox' checked={this.state.showPass} onChange={this.handleCheckbox} /></p>
+                <p>Show password: <input
+                    type='checkbox'
+                    name='showPass'
+                    checked={this.state.showPass}
+                    onChange={this.handleInput} /></p>
+                <button type='submit'>Send</button>
+                <br />
                 <textarea
                     style={{
                         width: 300,
@@ -66,7 +60,7 @@ export class Form extends React.Component {
                     value={JSON.stringify(this.state, null, '\t')}
                     readOnly>
                 </textarea>
-            </div>
+            </form>
         )
     }
 }
