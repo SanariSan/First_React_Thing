@@ -4,6 +4,7 @@ export class Form extends React.Component {
     state = {
         login: '',
         password: '',
+        showPass: false,
         selectedCountry: 'ru'
     }
 
@@ -31,12 +32,19 @@ export class Form extends React.Component {
         })
     }
 
+    handleCheckbox = (evt) => {
+        this.setState({
+            showPass: evt.target.checked
+        })
+    }
+
     render() {
         return (
             <div>
                 <h1>Hello, {this.state.login !== '' ? this.state.login : 'Guest'}</h1>
                 <p>Login: <input value={this.state.login} onChange={this.handleLoginInput} /></p>
                 <p>Password: <input
+                    type={this.state.showPass ? 'text' : 'password'}
                     value={
                         this.state.password
                     }
@@ -49,12 +57,15 @@ export class Form extends React.Component {
                     <option>usa</option>
                     <option>other</option>
                 </select></p>
-                <textarea 
+                <p>Show password: <input type='checkbox' checked={this.state.showPass} onChange={this.handleCheckbox} /></p>
+                <textarea
                     style={{
                         width: 300,
                         height: 150
-                    }} 
-                    value={JSON.stringify(this.state, null, '\t')}></textarea>
+                    }}
+                    value={JSON.stringify(this.state, null, '\t')}
+                    readOnly>
+                </textarea>
             </div>
         )
     }
