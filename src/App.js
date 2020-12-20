@@ -2,8 +2,9 @@ import React from 'react';
 import './App.css';
 
 import { Body } from './components/Body';
-import { Counter } from './components/Counter';
+// import { Counter } from './components/Counter';
 import { Counters } from './components/Counters';
+import { Form } from './components/Form';
 import { Head } from './components/Head';
 import { ImgSlider } from './components/ImgSlider';
 
@@ -13,7 +14,8 @@ class App extends React.Component {
     visHead: false,
     visBody: false,
     visImgSlider: false,
-    visCounter: false
+    visCounter: false,
+    visForm: false
   };
 
 
@@ -33,6 +35,9 @@ class App extends React.Component {
         <button onClick={() => {
           this.setState({ visCounter: !this.state.visCounter })
         }}>Toggle Counter</button>
+        <button onClick={() => {
+          this.setState({ visForm: !this.state.visForm })
+        }}>Toggle Form</button>
 
         <header className="App-header">
           {this.state.visHead ? <Head /> : null}
@@ -41,6 +46,11 @@ class App extends React.Component {
           {
             <div className={this.state.visCounter ? 'visible' : 'hidden'}>
               <Counters />
+            </div>
+          }
+          {
+            <div className={this.state.visForm ? 'visible' : 'hidden'}>
+              <Form />
             </div>
           }
         </header>
