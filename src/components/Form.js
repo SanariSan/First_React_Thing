@@ -1,5 +1,6 @@
 import React from 'react';
 import zxcvbn from 'zxcvbn';
+import './Form.css';
 
 export class Form extends React.Component {
 
@@ -18,8 +19,8 @@ export class Form extends React.Component {
 
     handleInput = (event) => {
         const isCheckbox = event.target.type === 'checkbox' ? true : false;
-        let passwordHint = '';
-        let passwordStrength = 0;
+        let passwordHint;
+        let passwordStrength;
 
         if (event.target.name === 'password') {
             let result = zxcvbn(event.target.value);
@@ -30,8 +31,8 @@ export class Form extends React.Component {
 
         this.setState({
             [event.target.name]: isCheckbox ? event.target.checked : event.target.value,
-            passwordHint: passwordHint,
-            passwordStrength: passwordStrength
+            passwordHint: passwordHint || this.state.passwordHint,
+            passwordStrength: passwordStrength || this.state.passwordStrength
         })
     }
 
@@ -90,9 +91,17 @@ export class Form extends React.Component {
                     value={this.state.password}
                     onChange={this.handleInput} />
                 </p>
-                <meter max='4' id='password-strength-meter' value={this.state.passwordStrength}></meter>
+                <meter
+                    style={{
+                        margin: '5px'
+                    }}
+                    max='4'
+                    id='password-strength-meter'
+                    value={this.state.passwordStrength}>
+                </meter>
                 <p style={{
-                    color: 'cyan'
+                    color: 'cyan',
+                    'font-size': '10px'
                 }}>{this.state.passwordHint}</p>
                 <p className='error'>{this.state.errorPassword}</p>
                 <p>Select country: <select
@@ -120,7 +129,7 @@ export class Form extends React.Component {
                     value={JSON.stringify(this.state, null, '\t')}
                     readOnly>
                 </textarea>
-            </form>
+            </form >
         )
     }
 }
