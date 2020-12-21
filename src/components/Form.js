@@ -7,7 +7,7 @@ export class Form extends React.Component {
         email: '',
         password: '',
         passwordStrength: 0,
-        // passwordHint: '',
+        passwordHint: '',
         errorEmail: '',
         errorPassword: '',
         showPass: false,
@@ -23,7 +23,7 @@ export class Form extends React.Component {
 
         if (event.target.name === 'password') {
             let result = zxcvbn(event.target.value);
-            // console.log(result)
+
             passwordStrength = result.score;
             passwordHint = result.feedback.warning;
         }
@@ -65,7 +65,6 @@ export class Form extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        // alert('Event submit handled');
 
         const isValid = this.validateForm();
 
